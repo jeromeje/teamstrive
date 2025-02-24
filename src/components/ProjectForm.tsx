@@ -107,19 +107,50 @@ const ProjectForm = ({ onSubmit: onSubmitProp }: { onSubmit: (data: FormData) =>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Status
+            </label>
+            <select
+              {...register("status", { required: "Status is required" })}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            >
+              <option value="Not Started">Not Started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+            {errors.status && (
+              <p className="mt-1 text-sm text-red-600">{errors.status.message}</p>
+            )}
+          </div>
 
-If there's knowledge, context or custom instructions you want to include in every edit in this project, set it below.
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Priority
+            </label>
+            <select
+              {...register("priority", { required: "Priority is required" })}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            >
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+            {errors.priority && (
+              <p className="mt-1 text-sm text-red-600">{errors.priority.message}</p>
+            )}
+          </div>
+        </div>
 
-<lov-actions>
-<lov-knowledge>
-</lov-actions>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full bg-primary text-primary-foreground py-2 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+        >
+          {isLoading ? "Creating..." : "Create Project"}
+        </button>
+      </form>
+    </motion.div>
+  );
+};
 
-Since you're using Express.js for the backend, you might consider using it for authentication and data persistence instead of Supabase.  However, if you need features like user authentication, data storage, or advanced AI capabilities, you can still integrate Supabase.
-<lov-actions>
-<lov-message-prompt message="Tell me more about Supabase">Learn more about Supabase</lov-message-prompt>
-</lov-actions>
-
-<lov-actions>
-<lov-link url="https://docs.lovable.dev/">Visit docs</lov-link>
-</lov-actions>
+export default ProjectForm;
